@@ -1,12 +1,19 @@
-import React from 'react'
+import axios from 'axios'
+import React,{ useEffect , useState} from 'react'
 import { Row , Col , Image ,ListGroup , Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import products from '../products'
+ import products from '../products'
 const Product = ({match}) => {
+const [product,setProduct] = useState({})
+useEffect(() => {
+   const sendRequest = async () => {
+      const response =  await axios.get(`http://localhost:8000/api/products/${match.params.id}`)
 
-const product =    products.find((item)=>{
-      return item._id === match.params.id
-   })
+      setProduct(response.data)
+   }
+   sendRequest()
+}, match )
+
    return (
       <div>
        <Link to="/" className="btn btn-light my-3">لینک بازگشت به صفحه اصلی</Link>
