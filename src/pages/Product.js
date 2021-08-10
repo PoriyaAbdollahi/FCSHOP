@@ -12,7 +12,7 @@ useEffect(() => {
       setProduct(response.data)
    }
    sendRequest()
-}, match )
+},[match]  )
 
    return (
       <div>
