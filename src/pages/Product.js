@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { productDetailAction } from '../actions/productAction'
 
 
-const Product = ({match}) => {
+const Product = ({match,history}) => {
 
 const dispatch = useDispatch()
 
@@ -17,7 +17,9 @@ useEffect(() => {
   dispatch(productDetailAction(match.params.id))
 },[dispatch ,match]  )
 
-
+const onAddToCartHandler = () => {
+history.push(`/cart/${match.params.id}`)
+}
    return (
       <div>
        <Link to="/" className="btn btn-light my-3">لینک بازگشت به صفحه اصلی</Link>
@@ -43,7 +45,7 @@ useEffect(() => {
           <Col md={3}>
              <ListGroup variant="flush">
                 <ListGroup.Item>
-                   <Button className="btn-block" type="button"> افزودن به سبد خرید</Button>
+                   <Button  className="btn-block" onClick={onAddToCartHandler} type="button"> افزودن به سبد خرید</Button>
                 </ListGroup.Item>
              </ListGroup>
           </Col>
