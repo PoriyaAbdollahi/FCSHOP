@@ -1,28 +1,31 @@
-import axios from 'axios'
-import React,{ useEffect , useState} from 'react'
+import React,{ useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Row , Col , Image ,ListGroup , Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { productDetailAction } from '../actions/productAction'
+
 
 const Product = ({match}) => {
-const [product,setProduct] = useState({})
-useEffect(() => {
-   const sendRequest = async () => {
-      const response =  await axios.get(`http://localhost:8000/api/products/${match.params.id}`)
 
-      setProduct(response.data)
-   }
-   sendRequest()
-},[match]  )
+const dispatch = useDispatch()
+
+const  productDetail = useSelector(state => state.productDetail)
+
+const { loading , product } = productDetail
+
+useEffect(() => {
+  dispatch(productDetailAction(match.params.id))
+},[dispatch ,match]  )
+
 
    return (
       <div>
        <Link to="/" className="btn btn-light my-3">لینک بازگشت به صفحه اصلی</Link>
-       
-       <Row>
+       {loading ? (<h2>درحال دریافت ا</h2>) : (  <Row>
           <Col md={6}>
              <Image src={product.image} fluid/>
           </Col>
-         
+       
           <Col md={3}>
           <ListGroup variant="flush">
           <ListGroup.Item>
@@ -44,7 +47,8 @@ useEffect(() => {
                 </ListGroup.Item>
              </ListGroup>
           </Col>
-       </Row>
+       </Row>) }
+     
       </div>
    )
    
