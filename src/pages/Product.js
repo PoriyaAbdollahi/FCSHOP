@@ -2,7 +2,7 @@ import axios from 'axios'
 import React,{ useEffect , useState} from 'react'
 import { Row , Col , Image ,ListGroup , Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
- import products from '../products'
+
 const Product = ({match}) => {
 const [product,setProduct] = useState({})
 useEffect(() => {
@@ -31,6 +31,7 @@ useEffect(() => {
           <ListGroup.Item>
                 <h3>{product.price}</h3>
              </ListGroup.Item>
+
              <ListGroup.Item>
                 <h3>{product.description}</h3>
              </ListGroup.Item>

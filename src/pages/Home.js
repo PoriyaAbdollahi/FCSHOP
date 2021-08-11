@@ -1,22 +1,30 @@
-import React, { useState , useEffect } from 'react'
+import React, {   useEffect } from 'react'
+import { useDispatch , useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../Components/Product/Product'
-// import products from '../products'
-import axios from 'axios'
+
+
+import { productAction } from '../actions/productAction'
 const Home = () => {
-const [products,setProducts] = useState([]) 
+const  dispatch = useDispatch()
+
+ const productList = useSelector(state => state.productList)
+
+ const {loading , products } = productList
+
 useEffect(() => {
- const sendRequest =async () =>  {
-    const response = await axios.get("http://localhost:8000/api/products")
-    setProducts(response.data)
-   }
-   sendRequest()
-  
-}, [])
+
+dispatch(productAction())
+
+
+}, [dispatch])
+
    return (
       <div>
       <h1>محصولات</h1> 
-      <Row>
+      {loading ? ( <h2>درحال دریافت محصولات ... </h2> ): 
+      (
+         <Row>
          {products.map((item)=>{
 
             return( 
@@ -26,7 +34,11 @@ useEffect(() => {
             )
 
          })}
-         </Row>        
+         </Row>      
+      )
+
+      }
+      
       </div>
    )
 }
