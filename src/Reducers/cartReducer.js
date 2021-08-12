@@ -21,6 +21,11 @@ switch(action.type){
          }
          
       }
+      case 'CART_REMOVE_ITEM' :
+         return{
+            ...state,
+            cartItems:state.cartItems.filter((i)=> i.product !== action.payload)
+         }
       default :return state
 
 }
