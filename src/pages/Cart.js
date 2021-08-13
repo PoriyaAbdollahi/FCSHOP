@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTocart } from '../actions/cartAction'
 import { Col , Row , Image , ListGroup , Button ,Card} from 'react-bootstrap'
 import { removeFromCart } from '../actions/cartAction'
+import './Cart.css'
 const Cart = ({match}) => {
 const productId = match.params.id
 
@@ -34,9 +35,9 @@ console.log(cartItems)
                {
                   cartItems.lenght === 0 ? <p>سبد خالی خرید خالی</p> :
                   <ListGroup variant="flush">
-                     {cartItems.map((item) => (<ListGroup.Item key={item.product}>'
+                     {cartItems.map((item) => (<ListGroup.Item key={item.product} variant="light">
                      <Row>
-                        <Col md={2}>
+                        <Col md={2} >
                            <Image src={item.image} alt={item.name}  fluid rounded />
                         </Col>
                         <Col md={3}>
@@ -46,7 +47,7 @@ console.log(cartItems)
                            {item.price}
                         </Col>
                         <Col md={2}>
-                          <Button type="button" variant="light" onClick={()=> removeFromCartHandler(item.product)}>
+                          <Button type="button" variant="danger" onClick={()=> removeFromCartHandler(item.product)}>
                              <i className="fa fa-trash"></i>
                           </Button>
                         </Col>
@@ -56,7 +57,9 @@ console.log(cartItems)
                   </ListGroup>
                }
             </Col>
-            <Col md={4}>
+            
+         </Row>
+         <Col md={4}>
                            <Card>
                               <ListGroup variant="flush">
                                  <ListGroup.Item>
@@ -65,7 +68,6 @@ console.log(cartItems)
                               </ListGroup>
                            </Card>
                         </Col>
-         </Row>
 
       </div>
    )
